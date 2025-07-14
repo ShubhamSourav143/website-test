@@ -3,5 +3,6 @@
   "/blog/page": "app/blog/page.js",
   "/store/page": "app/store/page.js",
   "/donate/page": "app/donate/page.js",
-  "/help/page": "app/help/page.js"
+  "/help/page": "app/help/page.js",
+  "/adopt/page": "app/adopt/page.js"
 }
