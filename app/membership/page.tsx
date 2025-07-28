@@ -1,6 +1,6 @@
 // app/membership/page.tsx
 
-import JoinForm from '../../components/membership/JoinForm';
+import JoinForm from './JoinForm';
 
 export default function MembershipPage() {
   return (
