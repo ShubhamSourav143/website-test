@@ -1,12 +1,15 @@
-// app/membership/page.tsx
+'use client';
 
-import JoinForm from './JoinForm';
+import JoinForm from '../../components/membership/JoinForm';
 
 export default function MembershipPage() {
   return (
-    <main className="flex items-center justify-center min-h-screen bg-gray-50">
-      <div className="w-full max-w-md p-8 bg-white shadow-xl rounded-2xl">
-        <h1 className="text-2xl font-bold mb-6 text-center">Become a Member</h1>
+    <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Join Our Mission</h1>
+          <p className="text-gray-600">Become a member of our animal welfare community</p>
+        </div>
         <JoinForm />
       </div>
     </main>
