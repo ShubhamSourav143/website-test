@@ -78,12 +78,12 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 
 ### 3. Run Database Migration
 
-Run these migrations in Supabase SQL Editor (in order):
+Run both initial and membership migrations in your Supabase SQL editor (in order):
 
 1. `supabase/migrations/20250628185827_calm_frog.sql`
 2. `supabase/migrations/20250810120000_membership.sql`
 
-These add content tables and membership (`profiles`, `membership_payments`) with RLS.
+These create content tables plus `profiles` and `membership_payments` with secure RLS policies.
 
 ## 📱 Pages
 
@@ -137,7 +137,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 NEXT_PUBLIC_USE_FAKE_PAYMENTS=true
 ```
 
-`NEXT_PUBLIC_USE_FAKE_PAYMENTS` toggles the simulated membership payment flow.
+`NEXT_PUBLIC_USE_FAKE_PAYMENTS` toggles the simulated code-word membership flow.
 
 ## 🚀 Deployment
 

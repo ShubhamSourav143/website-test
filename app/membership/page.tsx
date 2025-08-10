@@ -39,6 +39,7 @@
      const { error: insertError } = await supabase
        .from('membership_payments')
        .insert({ user_id: user.id, amount, code, status: 'success' });
+
      if (insertError) {
        setIsSubmitting(false);
        setErrorMessage(insertError.message);
@@ -48,7 +49,9 @@
      const { error: updateError } = await supabase
        .from('profiles')
        .upsert({ id: user.id, is_member: true }, { onConflict: 'id' });
+
      setIsSubmitting(false);
+
      if (updateError) {
        setErrorMessage(updateError.message);
        return;
@@ -61,9 +64,20 @@
      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
        <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md space-y-4">
          <h1 className="text-2xl font-bold text-center">Membership Payment</h1>
-         <p className="text-gray-600 text-sm text-center">Enter payment code to activate membership (e.g., R500). Minimum R199.</p>
-         <input value={code} onChange={(e) => setCode(e.target.value)} placeholder="e.g. R500" className="w-full rounded-xl border px-4 py-3" />
-         <button onClick={handleApplyCode} disabled={isSubmitting} className="w-full rounded-xl bg-green-600 text-white py-3 font-semibold hover:bg-green-700 transition">
+         <p className="text-gray-600 text-sm text-center">
+           Enter payment code to activate membership (e.g., R500). Minimum R199.
+         </p>
+         <input
+           value={code}
+           onChange={(e) => setCode(e.target.value)}
+           placeholder="e.g. R500"
+           className="w-full rounded-xl border px-4 py-3"
+         />
+         <button
+           onClick={handleApplyCode}
+           disabled={isSubmitting}
+           className="w-full rounded-xl bg-green-600 text-white py-3 font-semibold hover:bg-green-700 transition"
+         >
            {isSubmitting ? 'Processing...' : 'Confirm Membership'}
          </button>
          {errorMessage && <p className="text-red-600 text-sm">{errorMessage}</p>}

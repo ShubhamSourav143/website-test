@@ -21,7 +21,7 @@ export default function SignupPage() {
     if (error) {
       alert('Error: ' + error.message);
     } else {
-      router.replace('/dashboard');
+      router.replace('/membership');
     }
   };
 
