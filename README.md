@@ -78,7 +78,12 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 
 ### 3. Run Database Migration
 
-Copy the SQL from `supabase/migrations/20250628185827_calm_frog.sql` and run it in your Supabase SQL editor.
+Run these migrations in Supabase SQL Editor (in order):
+
+1. `supabase/migrations/20250628185827_calm_frog.sql`
+2. `supabase/migrations/20250810120000_membership.sql`
+
+These add content tables and membership (`profiles`, `membership_payments`) with RLS.
 
 ## 📱 Pages
 
@@ -121,6 +126,18 @@ All images are sourced from Pexels for demonstration. Replace with your actual p
 1. Update image URLs in components
 2. Add images to `public/` folder
 3. Update image paths accordingly
+
+## 🔐 Environment Variables
+
+Create a `.env.local` file:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+NEXT_PUBLIC_USE_FAKE_PAYMENTS=true
+```
+
+`NEXT_PUBLIC_USE_FAKE_PAYMENTS` toggles the simulated membership payment flow.
 
 ## 🚀 Deployment
 
