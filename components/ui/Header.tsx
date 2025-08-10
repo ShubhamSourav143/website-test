@@ -11,7 +11,7 @@ const getPlaceholder = (pathname: string) => {
   if (pathname === '/donate') return 'Search donation stories…'
   if (pathname === '/blog') return 'Search blog stories…'
   if (pathname === '/help') return 'Search for help topics…'
-  return 'Search KGP Paws'
+      return 'Search Animal Welfare'
 }
 
 interface HeaderProps {

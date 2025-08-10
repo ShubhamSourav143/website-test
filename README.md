@@ -1,6 +1,6 @@
-# IIT KGP Animal Welfare Website
+# Website Test Project
 
-A modern, responsive website for IIT Kharagpur Animal Welfare NGO built with Next.js, TypeScript, and Tailwind CSS.
+A modern, responsive website testing project built with Next.js, TypeScript, and Tailwind CSS. This is a learning/testing environment for implementing authentication, membership systems, and modern web development practices.
 
 ## 🚀 Features
 
@@ -59,7 +59,7 @@ The app will be available at `http://localhost:3000`
 
 ## 🗄️ Database Setup (Optional)
 
-The app works without a database using fallback data, but you can set up Supabase for full functionality:
+The app works without a database using fallback data, but you can set up Supabase for full functionality. This project uses a separate Supabase instance for testing purposes:
 
 ### 1. Create Supabase Project
 
@@ -92,6 +92,10 @@ These create content tables plus `profiles` and `membership_payments` with secur
 - **Donate** (`/donate`): Donation page with impact areas and payment options
 - **Stories** (`/blog`): Blog posts about rescues and organization updates
 - **Help** (`/help`): Contact information, FAQs, and volunteer opportunities
+- **Dashboard** (`/dashboard`): User dashboard for authenticated members
+- **Profile** (`/profile`): User profile and settings management
+- **Login/Register** (`/login`, `/register`): Authentication pages
+- **Membership** (`/membership`): Membership onboarding and payment simulation
 
 ## 🎨 Customization
 
@@ -161,4 +165,4 @@ For questions or support, contact the development team or refer to the documenta
 
 ## 📄 License
 
-This project is for IIT Kharagpur Animal Welfare NGO.
+This is a testing/learning project. The actual implementation will be used for a different organization website.

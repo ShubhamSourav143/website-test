@@ -16,7 +16,7 @@ const handleGoogleSignIn = async () => {
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: 'https://www.kgppaws.org/dashboard',
+              redirectTo: '/dashboard',
     },
   });
   if (error) {
@@ -84,7 +84,7 @@ const handleLogin = async (e: React.FormEvent) => {
               <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center mx-auto mb-4 animate-pulse">
                 <Crown className="w-8 h-8 text-white" />
               </div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome to KGP Paws Clubhouse</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome to Animal Welfare Clubhouse</h2>
               <p className="text-gray-600">Join the most paw-some community in India!</p>
             </div>
 

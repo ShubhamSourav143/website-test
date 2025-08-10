@@ -8,7 +8,7 @@ const products = [
   // ... keep your existing products array from original code ...
   {
   id: 1,
-    name: 'KGP Paws Classic T-Shirt',
+            name: 'Animal Welfare Classic T-Shirt',
     category: 'clothing',
     subcategory: 't-shirts',
     type: 'casual',
@@ -245,7 +245,7 @@ const products = [
     stock: 123,
     isNew: false,
     isBestSeller: false,
-    description: 'Classic design bottle with KGP Paws logo'
+            description: 'Classic design bottle with Animal Welfare logo'
   }
 ];
 
