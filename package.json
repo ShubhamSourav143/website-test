@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
+    "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/supabase-js": "^2.39.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
@@ -16,8 +17,8 @@
     "keen-slider": "^6.8.6",
     "lucide-react": "^0.303.0",
     "next": "^14.2.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "swiper": "^11.1.0",
     "tailwindcss-animate": "^1.0.0"
   },
