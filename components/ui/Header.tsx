@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { Menu } from 'lucide-react'
 import SearchAndActions from './SearchAndActions'
+import { supabase } from '@/lib/supabase'
 
 const getPlaceholder = (pathname: string) => {
   if (pathname === '/adopt') return 'Search adoptable friends…'
@@ -22,6 +23,7 @@ export default function Header({ onMenuClick, sidebarOpen }: HeaderProps) {
   const pathname = usePathname()
   const [placeholder, setPlaceholder] = useState(getPlaceholder(pathname))
   const [isMobile, setIsMobile] = useState(false)
+  const [userEmail, setUserEmail] = useState<string | null>(null)
 
   useEffect(() => {
     setPlaceholder(getPlaceholder(pathname))
@@ -34,6 +36,20 @@ export default function Header({ onMenuClick, sidebarOpen }: HeaderProps) {
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [pathname])
+
+  useEffect(() => {
+    let unsub: (() => void) | undefined
+    supabase.auth.getUser().then(({ data }) => {
+      setUserEmail(data.user?.email ?? null)
+    })
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUserEmail(session?.user?.email ?? null)
+    })
+    unsub = () => sub.subscription.unsubscribe()
+    return () => {
+      try { unsub && unsub() } catch {}
+    }
+  }, [])
 
   const handleSearch = (query: string) => {
     // Implement search functionality
@@ -57,10 +73,27 @@ export default function Header({ onMenuClick, sidebarOpen }: HeaderProps) {
         </button>
 
         {/* Search and Actions */}
-        <SearchAndActions 
-          placeholder={placeholder}
-          onSearch={handleSearch}
-        />
+        <div className="flex items-center gap-4 flex-1">
+          <SearchAndActions 
+            placeholder={placeholder}
+            onSearch={handleSearch}
+          />
+          <div className="ml-auto">
+            {userEmail ? (
+              <div className="relative group">
+                <button className="px-3 py-2 border rounded-lg text-sm text-gray-700 bg-white hover:bg-gray-50">
+                  {userEmail}
+                </button>
+                <div className="absolute right-0 mt-2 w-40 bg-white border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                  <a href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Profile/Settings</a>
+                  <a href="/logout" className="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">Logout</a>
+                </div>
+              </div>
+            ) : (
+              <a href="/login" className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700">Join</a>
+            )}
+          </div>
+        </div>
       </div>
     </header>
   )
