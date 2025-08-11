@@ -141,7 +141,9 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 NEXT_PUBLIC_USE_FAKE_PAYMENTS=true
 ```
 
-`NEXT_PUBLIC_USE_FAKE_PAYMENTS` toggles the simulated code-word membership flow.
+- `NEXT_PUBLIC_USE_FAKE_PAYMENTS` defaults to enabled unless set to `false`.
+- When enabled, the site accepts payment codes like `R500` anywhere code input is supported.
+- Membership accepts codes with minimum `R199`.
 
 ## 🚀 Deployment
 

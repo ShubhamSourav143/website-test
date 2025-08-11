@@ -2,13 +2,14 @@
 
  import { useState } from 'react';
  import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+ import { isFakePaymentsEnabled, parsePaymentCode } from '@/lib/fakePayments';
 
  export default function MembershipPage() {
    const supabase = createClientComponentClient();
    const [code, setCode] = useState('');
    const [errorMessage, setErrorMessage] = useState<string | null>(null);
    const [isSubmitting, setIsSubmitting] = useState(false);
-   const useFakePayments = process.env.NEXT_PUBLIC_USE_FAKE_PAYMENTS === 'true';
+   const useFakePayments = isFakePaymentsEnabled();
 
    async function handleApplyCode() {
      setErrorMessage(null);
@@ -18,13 +19,9 @@
        return;
      }
 
-     if (!code.startsWith('R')) {
-       setErrorMessage('Invalid code. Use format R###');
-       return;
-     }
-     const amount = Number(code.slice(1));
-     if (isNaN(amount) || amount < 199) {
-       setErrorMessage('Code must be like R199 or higher.');
+     const amount = parsePaymentCode(code);
+     if (!amount || amount < 199) {
+       setErrorMessage('Invalid code. Use format R###, minimum R199');
        return;
      }
 
