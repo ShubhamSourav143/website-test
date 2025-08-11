@@ -74,16 +74,18 @@ Create a `.env.local` file:
 ```env
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+NEXT_PUBLIC_USE_FAKE_PAYMENTS=true
 ```
 
 ### 3. Run Database Migration
 
-Run both initial and membership migrations in your Supabase SQL editor (in order):
+Run all migrations in your Supabase SQL editor (in order):
 
 1. `supabase/migrations/20250628185827_calm_frog.sql`
 2. `supabase/migrations/20250810120000_membership.sql`
+3. `supabase/migrations/20250811000100_articles_quiz.sql`
 
-These create content tables plus `profiles` and `membership_payments` with secure RLS policies.
+These create initial content tables, `profiles` and `membership_payments` with secure RLS policies, plus Articles (posts/likes/comments/follows) and Quiz (quizzes/questions/attempts). The quiz migration seeds one public quiz with a sample question.
 
 ## 📱 Pages
 
@@ -96,6 +98,33 @@ These create content tables plus `profiles` and `membership_payments` with secur
 - **Profile** (`/profile`): User profile and settings management
 - **Login/Register** (`/login`, `/register`): Authentication pages
 - **Membership** (`/membership`): Membership onboarding and payment simulation
+
+## 🧭 Navigation & Layout
+
+- Site-wide navigation is defined in the App Router layout and client header/sidebar.
+- Guests: Header shows a "Join" button. Sidebar shows public routes.
+- Authenticated users: Header shows a profile dropdown (Profile/Settings, Logout). Sidebar includes: Dashboard, Articles, Quiz, Foster, Feed, Profile, plus public routes.
+- Sidebar is fixed on desktop and becomes a slide-out drawer on mobile.
+
+## 📝 Articles (Posts)
+
+- Data model: `posts`, `post_likes`, `comments`, `follows`, `profiles.public_posts`.
+- RLS: Everyone can read public posts; members can create posts and interact (like/comment); authors can edit/delete their posts.
+- UI:
+  - List: `app/articles/page.tsx`
+  - View: `app/articles/[id]/page.tsx` (with like/unlike)
+  - New: `app/articles/new/page.tsx` (redirects non-members to membership)
+
+## 🧩 Quiz System
+
+- Data model: `quizzes`, `quiz_questions`, `quiz_attempts`.
+- RLS: Public can read public quizzes/questions; members can access member-only quizzes; attempts require auth (and membership if member-only).
+- UI:
+  - List: `app/quiz/page.tsx`
+  - Take: `app/quiz/[id]/page.tsx`
+  - Results: `app/quiz/results/[attemptId]/page.tsx` (shows percentile)
+- **Articles** (`/articles`): Public posts listing. Members can create posts at `/articles/new` and like/comment. 
+- **Quiz** (`/quiz`): Quiz list and taking quizzes. Some quizzes may be members-only. Results at `/quiz/results/[attemptId]`.
 
 ## 🎨 Customization
 
@@ -119,7 +148,7 @@ export const APP_CONFIG = {
 
 ### Modify Styling
 
-- Global styles: `styles/globals.css`
+- Global styles: `app/globals.css`
 - Component styles: Use Tailwind classes
 - Custom animations: Add to `styles/globals.css`
 

@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import './globals.css'
 import ClientLayout from '../components/layout/ClientLayout'
 
 export const metadata = {
