@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { isFakePaymentsEnabled, parsePaymentCode } from '@/lib/fakePayments';
 import { Heart, Shield, Stethoscope, Home, DollarSign, CreditCard, Smartphone, Users, Clock, MapPin, ShoppingCart, Target, TrendingUp, CheckCircle, Share2, Calendar } from 'lucide-react';
 
 const impactAreas = [
@@ -13,7 +12,7 @@ const impactAreas = [
     impact: 'Covers emergency surgery for one animal',
     realExample: 'Like Chedi\'s cancer treatment or train accident rescues',
     image: 'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=600',
-    raised: 45000,
+    raised: 45100,
     target: 100000,
     supporters: 23,
     daysLeft: 15
@@ -99,8 +98,6 @@ export default function DonatePage() {
   const [selectedAmount, setSelectedAmount] = useState(3000);
   const [customAmount, setCustomAmount] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('upi');
-  const [code, setCode] = useState('');
-  const fakeEnabled = isFakePaymentsEnabled();
   const [isMonthly, setIsMonthly] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
 
@@ -115,16 +112,6 @@ export default function DonatePage() {
   };
 
   const handleDonate = (amount?: number) => {
-    // Accept fake payment codes like R500 if fake enabled
-    if (fakeEnabled && code) {
-      const parsed = parsePaymentCode(code);
-      if (parsed && parsed > 0) {
-        setShowThankYou(true);
-        setTimeout(() => setShowThankYou(false), 3000);
-        return;
-      }
-    }
-    // Normal simulated thank-you
     setShowThankYou(true);
     setTimeout(() => setShowThankYou(false), 3000);
   };
@@ -366,21 +353,6 @@ export default function DonatePage() {
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
-
-              {fakeEnabled && (
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Payment Code (testing)
-                  </label>
-                  <input
-                    value={code}
-                    onChange={(e) => setCode(e.target.value)}
-                    placeholder="e.g. R500"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  />
-                  <p className="text-xs text-gray-500 mt-1">Enter R{`{amount}`} to simulate payment. Example: R500</p>
-                </div>
-              )}
 
               {/* Payment Method */}
               <div className="mb-6">
